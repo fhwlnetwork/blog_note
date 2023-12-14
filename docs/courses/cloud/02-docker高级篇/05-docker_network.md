@@ -24,9 +24,7 @@ docker不启动，默认网络情况下网卡为 ens33/eth0 lo virbro
 
 ![image-20220207153527587](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202071537091.png)
 
-docker启动后，网络情况
 
-![image-20220207153853102](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220207153853102.png)
 
 ## 常用基本命令
 

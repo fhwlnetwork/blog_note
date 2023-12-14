@@ -1,17 +1,15 @@
 ---
 title: DockerFile解析
 author: 吴建华
-date: 2022/10/22 21:25
+date: 2021/01/16 17:58
 categories:
- - docker高级篇
+ - docker基础篇
 tags:
+ - 乌班图
  - docker
- - Linux
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+ - linux
 ---
+
 # DockerFile解析
 
 ## 是什么
@@ -90,19 +88,15 @@ RUN是在 docker build时运行
 指定该镜像以什么样的用户去执行，如果都不指定，默认是root
 
 ### ENV
+指定该镜像以什么样的用户去执行，如果都不指定，默认是root
+ENV MY_PATH /usr/mytest
+这个环境变量可以在后续的任何RUN指令中使用，这就如同在命令前面指定了环境变量前缀一样；
+也可以在其它指令中直接使用这些环境变量，
 
-用来在构建镜像过程中设置环境变量
-
->ENV MY_PATH /usr/mytest
->这个环境变量可以在后续的任何RUN指令中使用，这就如同在命令前面指定了环境变量前缀一样；
->也可以在其它指令中直接使用这些环境变量，
->
->比如：WORKDIR $MY_PATH
-
+比如：WORKDIR $MY_PATH
 ### ADD
 
 将宿主机目录下的文件拷贝进镜像且会自动处理URL和解压tar压缩包
-
 ### COPY
 
 类似ADD，拷贝文件和目录到镜像中。
@@ -134,28 +128,28 @@ COPY ["src", "dest"]
 ><a style="color:red">它和前面RUN命令的区别</a>
 >CMD是在docker run 时运行
 >RUN是在 docker build时运行。
-
-### **ENTRYPOINT**
-
+### ENTRYPOINT
 也是用来指定一个容器启动时要运行的命令,类似于 CMD 指令，但是ENTRYPOINT不会被docker run后面的命令覆盖，而且这些命令行参数会被当作参数送给 ENTRYPOINT 指令指定的程序
+```text
+命令格式: ENTRYPONINT ["<executeable>","<param1>","param2".....]
 
-> 命令格式: ENTRYPONINT ["<executeable>","<param1>","param2".....]
 
 ENTRYPOINT可以和CMD一起用，一般是变参才会使用 CMD ，这里的 CMD 等于是在给 ENTRYPOINT 传参。
-当指定了ENTRYPOINT后，CMD的含义就发生了变化，不再是直接运行其命令而是将CMD的内容作为参数传递给ENTRYPOINT指令，他两个组合会变成<ENTRYPONINT >"<CMD>"
-
+当指定了ENTRYPOINT后，CMD的含义就发生了变化，不再是直接运行其命令而是将CMD的内容作为参数传递给ENTRYPOINT指令，他两个组合会变成<ENTRYPONINT ><CMD>
+```
 
 >案例如下：假设已通过 Dockerfile 构建了 nginx:test 镜像：
+>
 >```sh
 >FROM nginx
 >ENTRTYPOINT["nginx","-c"] # 定参
 >CMD ["/etc/nginx/nginx.conf"] #变参
 >```
+>
 >| 是否传参         | 按照dockerfile编写执行         | 传参运行                                      |
 >| ---------------- | ------------------------------ | --------------------------------------------- |
 >| Docker命令       | docker run  nginx:test         | docker run  nginx:test -c /etc/nginx/new.conf |
 >| 衍生出的实际命令 | nginx -c /etc/nginx/nginx.conf | nginx -c /etc/nginx/new.conf                  |
->
 
 #### 优点
 
@@ -239,6 +233,7 @@ docker run -it centosjava8:1.5 /bin/bash
 ```sh
 docker image ls -f dangling=true
 ```
+
 
 
 
