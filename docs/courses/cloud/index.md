@@ -1,6 +1,6 @@
 ---
 title: 云原生入门
-author: 查尔斯
+author: 吴建华
 date: 2022/10/22 21:21
 categories:
  - 云原生

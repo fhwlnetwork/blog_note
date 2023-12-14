@@ -1,6 +1,6 @@
 ---
 title: 个人常用 Git 命令
-author: 查尔斯
+author: 吴建华
 date: 2022/10/05 21:30
 isTop: true
 categories:

@@ -1,6 +1,6 @@
 [English](./README.en.md) | 中文
 
-# 查尔斯的知识库
+# 吴建华的知识库
 
 <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
     <img src="https://img.shields.io/badge/文章%20License-CC%204.0%20BY--SA-blue.svg">
@@ -13,7 +13,7 @@
 </a>
 
 
-📝 **查尔斯的个人技术知识库，记录 & 分享个人碎片化、结构化、体系化的技术知识内容。** 
+📝 **吴建华的个人技术知识库，记录 & 分享个人碎片化、结构化、体系化的技术知识内容。** 
 
 🐢 [GitHub Pages（完整体验）](https://blog.charles7c.top) | 🐇 [Gitee Pages（无法评论）](https://charles7c.gitee.io)
 

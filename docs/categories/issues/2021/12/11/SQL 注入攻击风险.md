@@ -1,6 +1,6 @@
 ---
 title: SQL 注入攻击风险
-author: 查尔斯
+author: 吴建华
 date: 2021/12/11 22:51
 categories:
  - Bug万象集

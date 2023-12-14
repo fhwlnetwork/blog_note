@@ -1,6 +1,6 @@
 ---
 title: SQL映射文件之缓存元素
-author: 查尔斯
+author: 吴建华
 date: 2020/12/28 00:17
 categories:
  - MyBatis快速入门
