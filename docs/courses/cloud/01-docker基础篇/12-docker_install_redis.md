@@ -33,7 +33,7 @@ showComment: false
 
 ###  /app/redis目录下修改redis.conf文件
 
-> 内容件[conf](../redis/redisconf.md)
+> 内容件[conf](./redis.conf)
 >
 
 ## 创建容器
