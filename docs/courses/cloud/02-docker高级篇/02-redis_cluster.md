@@ -1,3 +1,18 @@
+---
+title: redis集群
+author: 吴建华
+date: 2022/10/22 21:25
+categories:
+ - docker高级篇
+tags:
+ - docker
+ - Linux
+ - redis
+showArticleMetadata: false
+editLink: false
+lastUpdated: false
+showComment: false
+---
 # redis集群
 
 ## 新建6个docker容器redis实例

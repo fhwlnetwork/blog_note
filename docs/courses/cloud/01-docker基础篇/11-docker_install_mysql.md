@@ -1,3 +1,18 @@
+---
+title: 安装mysql
+author: 吴建华
+date: 2022/10/22 21:25
+categories:
+ - docker基础篇
+tags:
+ - docker
+ - Linux
+ - MySQL
+showArticleMetadata: false
+editLink: false
+lastUpdated: false
+showComment: false
+---
 # 安装mysql
 
 ## 查找镜像

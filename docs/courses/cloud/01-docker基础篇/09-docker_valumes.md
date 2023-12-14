@@ -1,3 +1,17 @@
+---
+title: Docker容器数据卷
+author: 吴建华
+date: 2022/10/22 21:25
+categories:
+ - docker基础篇
+tags:
+ - docker
+ - Linux
+showArticleMetadata: false
+editLink: false
+lastUpdated: false
+showComment: false
+---
 # Docker容器数据卷
 
 ## 什么是卷

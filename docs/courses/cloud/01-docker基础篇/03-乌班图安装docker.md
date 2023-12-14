@@ -1,3 +1,14 @@
+---
+title: 乌图班图安装docker
+author: 吴建华
+date: 2021/01/16 17:58
+categories:
+ - docker基础篇
+tags:
+ - 乌班图
+ - docker
+ - linux
+---
 # 乌图班图安装docker
 
 ## 1、卸载旧版本

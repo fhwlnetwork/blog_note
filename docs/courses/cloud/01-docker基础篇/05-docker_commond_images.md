@@ -1,3 +1,16 @@
+---
+title: 基础命令
+author: 吴建华
+date: 2021/01/16 17:58
+categories:
+ - docker基础篇
+tags:
+ - docker
+ - linux
+---
+
+
+
 # 基础命令
 
 ## 帮助启动类命令

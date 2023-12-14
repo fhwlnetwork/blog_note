@@ -1,3 +1,18 @@
+---
+title: 数据库主从
+author: 吴建华
+date: 2022/10/22 21:25
+categories:
+ - docker高级篇
+tags:
+ - docker
+ - Linux
+ - mysql
+showArticleMetadata: false
+editLink: false
+lastUpdated: false
+showComment: false
+---
 # 数据库主从
 
 ## 1、新建主服务器容器实例3307

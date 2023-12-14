@@ -1,3 +1,18 @@
+---
+title: redis集群面试
+author: 吴建华
+date: 2022/10/22 21:25
+categories:
+ - docker高级篇
+tags:
+ - docker
+ - Linux
+ - redis
+showArticleMetadata: false
+editLink: false
+lastUpdated: false
+showComment: false
+---
 # redis集群面试
 
 ## q:1~2亿条数据需要缓存，请问如何设计这个存储案例

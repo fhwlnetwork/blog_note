@@ -1,3 +1,17 @@
+---
+title: docker镜像
+author: 吴建华
+date: 2022/10/22 21:25
+categories:
+ - docker基础篇
+tags:
+ - docker
+ - Linux
+showArticleMetadata: false
+editLink: false
+lastUpdated: false
+showComment: false
+---
 # docker镜像
 
 ## 镜像

@@ -1,3 +1,18 @@
+---
+title: 安装redis
+author: 吴建华
+date: 2022/10/22 21:25
+categories:
+ - docker基础篇
+tags:
+ - docker
+ - Linux
+ - redis
+showArticleMetadata: false
+editLink: false
+lastUpdated: false
+showComment: false
+---
 # 安装redis
 
 ##  从docker hub上(阿里云加速器)拉取redis镜像到本地标签为6.0.8

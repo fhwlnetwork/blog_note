@@ -1,3 +1,15 @@
+---
+title: centos安装docker
+author: 吴建华
+date: 2021/01/16 17:58
+categories:
+  - docker基础篇
+tags:
+  - centos
+  - docker
+  - linux
+---
+
 # centos安装docker
 
 ## 1、前提说明
