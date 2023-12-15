@@ -8,10 +8,7 @@ tags:
  - docker
  - Linux
  - MySQL
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # 安装mysql
 
@@ -27,7 +24,7 @@ showComment: false
 # docker pull mysql:5.7
 ```
 
-##  创建容器
+## 创建容器
 
 ```sh
 docker run -d -p 3306:3306 --privileged=true -v /wjhuse/mysql/log:/var/log/mysql -v /wjhuse/mysql/data:/var/lib/mysql -v /wjhuse/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456  --name mysql mysql:5.7
@@ -35,7 +32,7 @@ docker run -d -p 3306:3306 --privileged=true -v /wjhuse/mysql/log:/var/log/mysql
 
 > 说明：
 >
->  -v /wjhuse/mysql/log:/var/log/mysql					-------------------------指定log目录
+> -v /wjhuse/mysql/log:/var/log/mysql					-------------------------指定log目录
 >
 > -v /wjhuse/mysql/data:/var/lib/mysql 	  			--------------------------指定数据存放目录
 >
@@ -53,7 +50,7 @@ character_set_server = utf8
 EOF
 ```
 
-##       重新启动mysql容器实例再重新进入并查看字符编码
+## 重新启动mysql容器实例再重新进入并查看字符编码
 
 ```sh
 # docker restart mysql

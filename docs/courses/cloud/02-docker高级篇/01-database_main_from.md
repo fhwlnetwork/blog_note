@@ -8,10 +8,7 @@ tags:
  - docker
  - Linux
  - mysql
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # 数据库主从
 
@@ -135,21 +132,21 @@ mysql -uroot -proot
 change master to master_host='10.0.0.200',master_user='slave',master_password='123456',master_port=3307,master_log_file='mall-mysql-bin.000001',master_log_pos=154,master_connect_retry=30;
 ```
 
->主从复制命令参数说明
+> 主从复制命令参数说明
 >
->master_host：主数据库的IP地址；
+> master_host：主数据库的IP地址；
 >
->master_port：主数据库的运行端口；
+> master_port：主数据库的运行端口；
 >
->master_user：在主数据库创建的用于同步数据的用户账号；
+> master_user：在主数据库创建的用于同步数据的用户账号；
 >
->master_password：在主数据库创建的用于同步数据的用户密码；
+> master_password：在主数据库创建的用于同步数据的用户密码；
 >
->master_log_file：指定从数据库要复制数据的日志文件，通过查看主数据的状态，获取File参数；
+> master_log_file：指定从数据库要复制数据的日志文件，通过查看主数据的状态，获取File参数；
 >
->master_log_pos：指定从数据库从哪个位置开始复制数据，通过查看主数据的状态，获取Position参数；
+> master_log_pos：指定从数据库从哪个位置开始复制数据，通过查看主数据的状态，获取Position参数；
 >
->master_connect_retry：连接失败重试的时间间隔，单位为秒。
+> master_connect_retry：连接失败重试的时间间隔，单位为秒。
 
 ## 12、在从数据库中查看主从同步状态
 
@@ -159,7 +156,7 @@ mysql> show slave status \G;
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062004684.png)
 
-## 13、在<a style="color:red">从数据库</a>中开启主从同步
+## 13、在`<a style="color:red">`从数据库`</a>`中开启主从同步
 
 ```sh
 mysql> start slave;
@@ -167,4 +164,3 @@ mysql> start slave;
 ```
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062025921.png)
-

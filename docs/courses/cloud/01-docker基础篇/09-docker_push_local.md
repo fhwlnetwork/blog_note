@@ -7,28 +7,23 @@ categories:
 tags:
  - docker
  - Linux
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # 推送镜像到本地
 
-	## 下载镜像Docker Registry
+    ## 下载镜像Docker Registry
 
 ```sh
 # docker pull registry  
 ```
 
+    ## 运行私有库Registry，相当于本地有个私有Docker hub
 
-
-	## 运行私有库Registry，相当于本地有个私有Docker hub
-
-```sh 
+```sh
 $ docker run -d -p 5000:5000 -v /zzyyuse/myregistry/:/tmp/registry --privileged=true registry 
 ```
 
-> 默认情况，仓库被创建在容器的/var/lib/registry目录下，建议自行用容器卷映射，方便于宿主机联调 
+> 默认情况，仓库被创建在容器的/var/lib/registry目录下，建议自行用容器卷映射，方便于宿主机联调
 
 ### 案例演示创建一个新镜像，ubuntu安装ifconfig命令
 
@@ -42,7 +37,7 @@ apt-get -y install net-tools
 root@wjh:/home/wjh# docker commit -m="本地测试" -a="wjh" 6dc642adb22e wjhubuntu:1.1
 ```
 
->命令： 在容器外执行，记得 
+> 命令： 在容器外执行，记得
 
 ### curl验证私服库上有什么镜像
 
@@ -51,13 +46,11 @@ root@wjh:/home/wjh# curl -XGET http://172.16.34.129:5000/v2/_catalog
 {"repositories":[]}
 ```
 
-
-
 ### 将新镜像zzyyubuntu:1.2修改符合私服规范的Tag
 
-按照公式： docker  tag  镜像:Tag  Host:Port/Repository:Tag 
+按照公式： docker  tag  镜像:Tag  Host:Port/Repository:Tag
 
-自己host主机IP地址，填写同学你们自己的，不要粘贴错误，O(∩_∩)O 
+自己host主机IP地址，填写同学你们自己的，不要粘贴错误，O(∩_∩)O
 
 使用命令 docker tag 将wjhbuntu:1.1这个镜像修改为172.16.34.129:5000/wjhubuntu:1.1
 
@@ -77,7 +70,7 @@ root@wjh:~# cat /etc/docker/daemon.json
 }
 ```
 
-> 上述理由：docker默认不允许http方式推送镜像，通过配置选项来取消这个限制。====>  修改完后如果不生效，建议重启docker 
+> 上述理由：docker默认不允许http方式推送镜像，通过配置选项来取消这个限制。====>  修改完后如果不生效，建议重启docker
 
 ### push推送到私服库
 

@@ -8,20 +8,17 @@ tags:
  - docker
  - Linux
  - redis
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # redis集群面试
 
 ## q:1~2亿条数据需要缓存，请问如何设计这个存储案例
 
->单机单台100%不可能，肯定是分布式存储，用redis如何落地？
+> 单机单台100%不可能，肯定是分布式存储，用redis如何落地？
 
 ### 哈希取余分区
 
-​																	![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062056695.png)
+    ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062056695.png)
 
 2亿条记录就是2亿个k,v，我们单机不行必须要分布式多机，假设有3台机器构成一个集群，用户每次读写操作都是根据公式：
 hash(key) % N个机器台数，计算出哈希值，用来决定数据映射到哪一个节点上。
@@ -45,21 +42,21 @@ hash(key) % N个机器台数，计算出哈希值，用来决定数据映射到�
 
    它也是按照使用取模的方法，前面笔记介绍的节点取模法是对节点（服务器）的数量进行取模。而一致性Hash算法是对2^32取模，简单来说，一致性Hash算法将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数H的值空间为0-2^32-1（即哈希值是一个32位无符号整形），整个哈希环如下图：整个空间按顺时针方向组织，圆环的正上方的点代表0，0点右侧的第一个点代表1，以此类推，2、3、4、……直到2^32-1，也就是说0点左侧的第一个点代表2^32-1， 0和2^32-1在零点中方向重合，我们把这个由2^32个点组成的圆环称为Hash环。
 
-​																																![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062104771.jpeg)
+    ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062104771.jpeg)
 
 #### 服务器IP节点映射
 
 将集群中各个IP节点映射到环上的某一个位置。
    将各个服务器使用Hash进行一个哈希，具体可以选择服务器的IP或主机名作为关键字进行哈希，这样每台机器就能确定其在哈希环上的位置。假如4个节点NodeA、B、C、D，经过IP地址的哈希函数计算(hash(ip))，使用IP地址哈希后在环空间的位置如下：
 
-​																																					![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062105703.jpeg)
+    ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062105703.jpeg)
 
-####  key落到服务器的落键规则
+#### key落到服务器的落键规则
 
 当我们需要存储一个kv键值对时，首先计算key的hash值，hash(key)，将这个key使用相同的函数Hash计算出哈希值并确定此数据在环上的位置，从此位置沿环顺时针“行走”，第一台遇到的服务器就是其应该定位到的服务器，并将该键值对存储在该节点上。
 如我们有Object A、Object B、Object C、Object D四个数据对象，经过哈希计算后，在环空间上的位置如下：根据一致性Hash算法，数据A会被定为到Node A上，B被定为到Node B上，C被定为到Node C上，D被定为到Node D上。
 
-​																																	![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062106041.jpeg)
+    ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062106041.jpeg)
 
 #### 优点
 
@@ -67,15 +64,13 @@ hash(key) % N个机器台数，计算出哈希值，用来决定数据映射到�
 
 假设Node C宕机，可以看到此时对象A、B、D不会受到影响，只有C对象被重定位到Node D。一般的，在一致性Hash算法中，如果一台服务器不可用，则受影响的数据仅仅是此服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它不会受到影响。简单说，就是C挂了，受到影响的只是B、C之间的数据，并且这些数据会转移到D进行存储。
 
-  																																	
-
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062108152.bmp)
 
 ##### 一致性哈希算法的扩展性
 
 数据量增加了，需要增加一台节点NodeX，X的位置在A和B之间，那收到影响的也就是A到X之间的数据，重新把A到X的数据录入到X上即可，不会导致hash取余全部数据重新洗牌。
 
-​																																							![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062109521.bmp)
+    ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062109521.bmp)
 
 #### 缺点
 
@@ -83,18 +78,18 @@ Hash环的数据倾斜问题
 一致性Hash算法在服务节点太少时，容易因为节点分布不均匀而造成数据倾斜（被缓存的对象大部分集中缓存在某一台服务器上）问题，
 例如系统中只有两台服务器：
 
-​																																														![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062110706.bmp)
+    ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062110706.bmp)
 
->为了在节点数目发生改变时尽可能少的迁移数据
+> 为了在节点数目发生改变时尽可能少的迁移数据
 >
->将所有的存储节点排列在收尾相接的Hash环上，每个key在计算Hash后会顺时针找到临近的存储节点存放。
->而当有节点加入或退出时仅影响该节点在Hash环上顺时针相邻的后续节点。  
+> 将所有的存储节点排列在收尾相接的Hash环上，每个key在计算Hash后会顺时针找到临近的存储节点存放。
+> 而当有节点加入或退出时仅影响该节点在Hash环上顺时针相邻的后续节点。
 >
->优点
->加入和删除节点只影响哈希环中顺时针方向的相邻的节点，对其他节点无影响。
+> 优点
+> 加入和删除节点只影响哈希环中顺时针方向的相邻的节点，对其他节点无影响。
 >
->缺点 
->数据的分布和节点的位置有关，因为这些节点不是均匀的分布在哈希环上的，所以数据在进行存储时达不到均匀分布的效果。
+> 缺点
+> 数据的分布和节点的位置有关，因为这些节点不是均匀的分布在哈希环上的，所以数据在进行存储时达不到均匀分布的效果。
 
 ### 哈希槽分区
 
@@ -121,5 +116,4 @@ Hash环的数据倾斜问题
 
 Redis 集群中内置了 16384 个哈希槽，redis 会根据节点数量大致均等的将哈希槽映射到不同的节点。当需要在 Redis 集群中放置一个 key-value时，redis 先对 key 使用 crc16 算法算出一个结果，然后把结果对 16384 求余数，这样每个 key 都会对应一个编号在 0-16383 之间的哈希槽，也就是映射到某个节点上。如下代码，key之A 、B在Node2， key之C落在Node3上
 
-​																															![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062122812.png)
-
+    ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062122812.png)

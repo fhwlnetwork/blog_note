@@ -8,14 +8,11 @@ tags:
  - docker
  - Linux
  - redis
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # 安装redis
 
-##  从docker hub上(阿里云加速器)拉取redis镜像到本地标签为6.0.8
+## 从docker hub上(阿里云加速器)拉取redis镜像到本地标签为6.0.8
 
 ```sh
  # docker pull redis:6.0.8
@@ -31,10 +28,9 @@ showComment: false
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202042144521.png)
 
-###  /app/redis目录下修改redis.conf文件
+### /app/redis目录下修改redis.conf文件
 
 > 内容件[conf](./redis.conf)
->
 
 ## 创建容器
 
@@ -49,7 +45,5 @@ redis]# docker exec -it 9d8321580455 /bin/bash
 root@9d8321580455:/data# redis-cli
 
 ```
-
-
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202042158484.png)

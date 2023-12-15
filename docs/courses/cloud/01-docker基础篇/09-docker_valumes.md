@@ -7,10 +7,7 @@ categories:
 tags:
  - docker
  - Linux
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # Docker容器数据卷
 
@@ -20,29 +17,29 @@ showComment: false
 
 卷的设计目的就是数据的持久化，完全独立于容器的生存周期，因此Docker不会在容器删除时删除其挂载的数据卷
 
- ```sh
+```sh
 docker run -it --privileged=true -v /宿主机绝对路径目录:/容器内目录      镜像名
- ```
+```
 
-##   **能干嘛**
+## **能干嘛**
 
 将运用与运行的环境打包镜像，run后形成容器实例运行 ，但是我们对数据的要求希望是持久化的
 Docker容器产生的数据，如果不备份，那么当容器实例删除后，容器内的数据自然也就没有了。
 为了能保存数据在docker中我们使用卷。
 
->特点：
+> 特点：
 >
->1：数据卷可在容器之间共享或重用数据
->2：卷中的更改可以直接实时生效，爽
->3：数据卷中的更改不会包含在镜像的更新中
->4：数据卷的生命周期一直持续到没有容器使用它为止
+> 1：数据卷可在容器之间共享或重用数据
+> 2：卷中的更改可以直接实时生效，爽
+> 3：数据卷中的更改不会包含在镜像的更新中
+> 4：数据卷的生命周期一直持续到没有容器使用它为止
 
-##      **数据卷案例**
+## **数据卷案例**
 
->命令
+> 命令
 >
 > 公式：docker run -it -v /宿主机目录:/容器内目录 ubuntu /bin/bash
->
+
 ### 创建容器
 
 ```sh
@@ -60,7 +57,7 @@ root@f7ef2383e12d:/#
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202042014021.png)
 
-##      读写规则映射添加说明
+## 读写规则映射添加说明
 
 ### 读写(默认)
 
@@ -94,4 +91,3 @@ docker run -it --privileged=true --volumes-from myu4 --name u2 ubuntu
 ```
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202042038467.png)
-

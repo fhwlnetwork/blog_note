@@ -7,14 +7,11 @@ categories:
 tags:
  - docker
  - Linux
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # 安装tomact
 
-##  docker hub上面查找tomcat镜像
+## docker hub上面查找tomcat镜像
 
 ```sh
 #  docker search tomcat
@@ -36,9 +33,9 @@ showComment: false
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202042055696.png)
 
-##  使用tomcat镜像创建容器实例(也叫运行镜像)
+## 使用tomcat镜像创建容器实例(也叫运行镜像)
 
-```sh 
+```sh
 docker run -it -p 8080:8080 tomcat
 ```
 
@@ -57,4 +54,3 @@ docker run -it -p 8080:8080 tomcat
 # docker run -d -p 8080:8080 --name mytomcat8 billygoo/tomcat8-jdk8
 
 ```
-

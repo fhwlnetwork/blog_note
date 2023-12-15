@@ -7,10 +7,7 @@ categories:
 tags:
  - docker
  - Linux
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # Docker容器监控之CAdvisor+InfluxDB+Granfana
 
@@ -25,6 +22,7 @@ CAdvisor监控收集+InfluxDB存储数据+Granfana展示图表
 ![image-20220207204017835](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202072040899.png)
 
 ## 安装
+
 ### 新建目录，创建文件
 
 ```sh
@@ -113,8 +111,6 @@ ip+3000端口的方式访问,默认帐户密码（admin/admin）
 1、配置数据源
 
 ![image-20220208110034152](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/image-20220208110034152.png)
-
-
 
 2、选择influxdb数据源
 

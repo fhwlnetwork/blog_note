@@ -8,10 +8,7 @@ tags:
  - docker
  - Linux
  - redis
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # redis集群
 
@@ -30,15 +27,15 @@ docker ps -a
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062153722.png)
 
->docker run																			---------------创建并运行docker容器实例
->name redis-node-6										  				---------------容器名字
->net host																				 ---------------使用宿主机的IP和端口，默认
->privileged=true												 				----------------获取宿主机root用户权限
->-v /data/redis/share/redis-node-6:/data				---------------容器卷，宿主机地址:docker内部地
->redis:6.0.8																			---------------redis镜像和版本号
->cluster-enabled yes														---------------开启redis集群
->appendonly yes																--------------开启持久化
->port 6386																			 -------------redis端口号
+> docker run																			---------------创建并运行docker容器实例
+> name redis-node-6										  				---------------容器名字
+> net host																				 ---------------使用宿主机的IP和端口，默认
+> privileged=true												 				----------------获取宿主机root用户权限
+> -v /data/redis/share/redis-node-6:/data				---------------容器卷，宿主机地址:docker内部地
+> redis:6.0.8																			---------------redis镜像和版本号
+> cluster-enabled yes														---------------开启redis集群
+> appendonly yes																--------------开启持久化
+> port 6386																			 -------------redis端口号
 
 ## 进入容器redis-node-1并为6台机器构建集群关系
 
@@ -105,11 +102,9 @@ docker stop redis-node-1
 
 ```
 
-
-
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062248358.png)
 
-## <a style="color:red">主从扩容案例</a>
+## `<a style="color:red">`主从扩容案例`</a>`
 
 ### 新建6387、6388两个节点+新建后启动+查看是否8节点
 
@@ -140,8 +135,8 @@ root@wjh:/data# redis-cli --cluster add-node 10.0.0.200:6387 10.0.0.200:6381
 
 ### 检查集群情况第1次
 
->#进入docker exec -it redis-node-7 /bin/bash
->#redis-cli --cluster check 真实ip地址:6381
+> #进入docker exec -it redis-node-7 /bin/bash
+> #redis-cli --cluster check 真实ip地址:6381
 
 ```sh
 [root@wjh ~]# docker exec -it redis-node-7 /bin/bash
@@ -152,16 +147,16 @@ root@wjh:/data# redis-cli --cluster check 10.0.0.200:6381
 
 ### 重新分派槽号
 
->重新分派槽号
->命令:redis-cli --cluster reshard IP地址:端口号
->redis-cli --cluster reshard 10.0.0.200:6381
+> 重新分派槽号
+> 命令:redis-cli --cluster reshard IP地址:端口号
+> redis-cli --cluster reshard 10.0.0.200:6381
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062340055.png)
 
 ### 查看集群情况
 
->为什么6387是3个新的区间，以前的还是连续？
->重新分配成本太高，所以前3家各自匀出来一部分，从6381/6382/6383三个旧节点分别匀出1364个坑位给新节点6387
+> 为什么6387是3个新的区间，以前的还是连续？
+> 重新分配成本太高，所以前3家各自匀出来一部分，从6381/6382/6383三个旧节点分别匀出1364个坑位给新节点6387
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062342324.png)
 
@@ -172,10 +167,6 @@ root@wjh:/data# redis-cli --cluster check 10.0.0.200:6381
 > ```sh
 > redis-cli --cluster add-node 10.0.0.200:6388 10.0.0.200:6387 --cluster-slave --cluster-master-id f0b4e73f8e334de67a2c91601d5f874a473e0578-------这个是6387的编号，按照自己实际情况
 > ```
->
-> 
-
-
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062348723.png)
 
@@ -200,13 +191,13 @@ redis-cli --cluster check 10.0.0.200:6382
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062355231.png)
 
-###  将6388删除从集群中将4号从节点6388删除
+### 将6388删除从集群中将4号从节点6388删除
 
->命令：redis-cli --cluster del-node ip:从机端口 从机6388节点ID
+> 命令：redis-cli --cluster del-node ip:从机端口 从机6388节点ID
 >
->```sh
->redis-cli --cluster del-node 10.0.0.200:6388 a0f8238e18d27339bd79a2868a3fbd5efbc5cdc8
->```
+> ```sh
+> redis-cli --cluster del-node 10.0.0.200:6388 a0f8238e18d27339bd79a2868a3fbd5efbc5cdc8
+> ```
 
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202062357981.png)
 
@@ -228,13 +219,11 @@ root@wjh:/data# redis-cli --cluster check 10.0.0.200:6381
 10.0.0.200:6382 (2de7935a...) -> 0 keys | 4096 slots | 1 slaves.
 ```
 
-
-
 ![](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202070004537.png)
 
 ### 将6387删除
 
->命令：redis-cli --cluster del-node ip:端口 6387节点ID
+> 命令：redis-cli --cluster del-node ip:端口 6387节点ID
 
 ```sh
 redis-cli --cluster del-node 10.0.0.200:6387 f0b4e73f8e334de67a2c91601d5f874a473e0578
@@ -250,8 +239,3 @@ root@wjh:/data#  redis-cli --cluster check 10.0.0.200:6381
 10.0.0.200:6383 (10f3bc0e...) -> 0 keys | 4096 slots | 1 slaves.
 10.0.0.200:6382 (2de7935a...) -> 0 keys | 4096 slots | 1 slaves.
 ```
-
-
-
-
-

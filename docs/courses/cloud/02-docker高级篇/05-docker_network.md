@@ -7,10 +7,7 @@ categories:
 tags:
  - docker
  - Linux
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # Docker网络
 
@@ -23,8 +20,6 @@ docker不启动，默认网络情况下网卡为 ens33/eth0 lo virbro
 > 在CentOS7的安装过程中如果有选择相关虚拟化的的服务安装系统后，启动网卡时会发现有一个以网桥连接的私网地址的virbr0网卡(virbr0网卡：它还有一个固定的默认IP地址192.168.122.1)，是做虚拟机网桥的使用的，其作用是为连接其上的虚机网卡提供 NAT访问外网的功能。
 
 ![image-20220207153527587](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202071537091.png)
-
-
 
 ## 常用基本命令
 
@@ -52,8 +47,6 @@ docker netwokr ls
 [root@wjh ~]# docker network rm test_network
 ```
 
-
-
 ![image-20220207155709139](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202071557208.png)
 
 ## 能干嘛
@@ -66,13 +59,13 @@ docker netwokr ls
 
 ### 网络模式
 
->bridge模式：使用--network  bridge指定，默认使用docker0
+> bridge模式：使用--network  bridge指定，默认使用docker0
 >
->host模式：使用--network host指定
+> host模式：使用--network host指定
 >
->none模式：使用--network none指定
+> none模式：使用--network none指定
 >
->container模式：使用--network container:NAME或者容器ID指定
+> container模式：使用--network container:NAME或者容器ID指定
 
 #### bridge
 
@@ -120,19 +113,19 @@ docker run -d -p 8083:8080 --network host --name tomcat83 billygoo/tomcat8-jdk8
 
 ![image-20220207165209333](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202071652000.png)
 
->问题：
->     docke启动时总是遇见标题中的警告
->原因：
->    docker启动时指定--network=host或-net=host，如果还指定了-p映射端口，那这个时候就会有此警告，
->并且通过-p设置的参数将不会起到任何作用，端口号会以主机端口号为主，重复时则递增。
->解决:
->    解决的办法就是使用docker的其他网络模式，例如--network=bridge，这样就可以解决问题，或者直接无视
+> 问题：
+> docke启动时总是遇见标题中的警告
+> 原因：
+> docker启动时指定--network=host或-net=host，如果还指定了-p映射端口，那这个时候就会有此警告，
+> 并且通过-p设置的参数将不会起到任何作用，端口号会以主机端口号为主，重复时则递增。
+> 解决:
+> 解决的办法就是使用docker的其他网络模式，例如--network=bridge，这样就可以解决问题，或者直接无视
 >
->```sh
->docker run -d                          --network host --name tomcat84 billygoo/tomcat8-jdk8
->```
+> ```sh
+> docker run -d                          --network host --name tomcat84 billygoo/tomcat8-jdk8
+> ```
 >
->![image-20220207165328614](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202071653674.png)
+> ![image-20220207165328614](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202071653674.png)
 
 ![image-20220207165939319](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202071659401.png)
 
@@ -151,8 +144,6 @@ docker run -d -p 8084:8080 --network none --name tomcat84 billygoo/tomcat8-jdk8
 #### container
 
 新建的容器和已经存在的一个容器共享一个网络ip配置而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。
-
-
 
 ##### 案例
 
@@ -192,11 +183,11 @@ docker run -d -p 8082:8080 --network wjh_network  --name tomcat82 billygoo/tomca
 
 ![image-20220207174015113](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/202202071740216.png)
 
->自定义网络本身就维护好了主机名和ip的对应关系（ip和域名都能通）
+> 自定义网络本身就维护好了主机名和ip的对应关系（ip和域名都能通）
 
 ## 整体说明
 
-从其架构和运行流程来看，Docker 是一个 C/S 模式的架构，后端是一个松耦合架构，众多模块各司其职。 
+从其架构和运行流程来看，Docker 是一个 C/S 模式的架构，后端是一个松耦合架构，众多模块各司其职。
 
 Docker 运行的基本流程为：
 

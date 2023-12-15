@@ -7,10 +7,7 @@ categories:
 tags:
  - docker
  - Linux
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # 容器编排
 
@@ -20,7 +17,7 @@ Compose 是 Docker 公司推出的一个工具软件，可以管理多个 Docker
 
 ## 能干嘛
 
- 	docker建议我们每一个容器中只运行一个服务,因为docker容器本身占用资源极少,所以最好是将每个服务单独的分割开来但是这样我们又面临了一个问题？
+    docker建议我们每一个容器中只运行一个服务,因为docker容器本身占用资源极少,所以最好是将每个服务单独的分割开来但是这样我们又面临了一个问题？
 	如果我需要同时部署好多个服务,难道要每个服务单独写Dockerfile然后在构建镜像,构建容器,这样累都累死了,所以docker官方给我们提供了docker-compose多服务部署的工具
 	例如要实现一个Web微服务项目，除了Web服务容器本身，往往还需要再加上后端的数据库mysql服务容器，redis服务器，注册中心eureka，甚至还包括负载均衡容器等等。。。。。。
 	Compose允许用户通过一个单独的docker-compose.yml模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）。
@@ -65,6 +62,7 @@ SU rm /usr/local/bin/docker-compose
 3、最后，执行docker-compose up命令 来启动并运行整个应用程序，完成一键部署上线
 
 ## Compose常用命令
+
 docker-compose -h                           # 查看帮助
 docker-compose up                           # 启动所有docker-compose服务
 docker-compose up -d                        # 启动所有docker-compose服务并后台运行
@@ -133,4 +131,3 @@ networks:
  
 
 ```
-

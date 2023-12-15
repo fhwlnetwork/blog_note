@@ -7,14 +7,11 @@ categories:
 tags:
  - docker
  - Linux
-showArticleMetadata: false
-editLink: false
-lastUpdated: false
-showComment: false
+
 ---
 # 推送镜像到阿里云
 
-##  本地镜像素材原型
+## 本地镜像素材原型
 
 ![image-20220204170207963](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/image-20220204170207963.png)
 
@@ -30,11 +27,11 @@ showComment: false
 
 ### 命名空间
 
-​	![image-20220204170751465](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/image-20220204170751465.png)
+    ![image-20220204170751465](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/image-20220204170751465.png)
 
 ### 仓库名称
 
-​	![image-20220204170902623](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/image-20220204170902623.png)
+    ![image-20220204170902623](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/image-20220204170902623.png)
 
 ![image-20220204171017669](https://cdn.jsdelivr.net/gh/fhwlnetwork/blos_imgs/img/image-20220204171017669.png)
 
@@ -44,7 +41,7 @@ showComment: false
 
 ## 将镜像推送到阿里云
 
-	### seq1:登录阿里云Docker Registry
+    ### seq1:登录阿里云Docker Registry
 
 ```sh
 $ docker login --username=1355997****@139.com registry.cn-hangzhou.aliyuncs.com
@@ -54,7 +51,7 @@ $ docker login --username=1355997****@139.com registry.cn-hangzhou.aliyuncs.com
 
 ### seq2:镜像打标签
 
-```sh 
+```sh
 $ docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/fhwlkj/ubuntu:[镜像版本号]
 ```
 
