@@ -86,5 +86,5 @@ jobs:
         with:
           gitee-username: ${{ secrets.GITEE_USERNAME }} #Gitee 用户名
           gitee-password: ${{ secrets.GITEE_PASSWORD }} #Gitee 密码
-          gitee-repo: Charles7c/charles7c #Gitee 仓库
+          gitee-repo: 凤华网络/blog_note #Gitee 仓库
           branch: pages #要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
