@@ -71,9 +71,9 @@ jobs:
     steps:
       - name: 部署
         run: |
-          git config --global user.name "like977" # github 用户名
-          git config --global user.email "1768045871@qq.com" # 邮箱
-          git clone https://github.com/fhwlnetwork/blog_note.git .deploy_git
+          git config --global user.name "hade" # github 用户名
+          git config --global user.email "849109312@qq.com" # 邮箱
+          git clone https://github.com/fhwlnetwork/blog_note.git
           # 此处务必用HTTPS链接。SSH链接可能有权限报错的隐患
           hexo deploy
       # 1、同步内容到 Gitee
