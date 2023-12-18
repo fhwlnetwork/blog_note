@@ -75,8 +75,8 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }} #Gitee私钥
         with:
-          source-repo: git@github.com:Charles7c/charles7c.github.io.git #GitHub 源仓库地址
-          destination-repo: git@gitee.com:Charles7c/charles7c.git #Gitee 目标仓库地址
+          source-repo: git@github.com:fhwlnetwork/blog_note.git #GitHub 源仓库地址
+          destination-repo: git@gitee.com:fhwlkj/blog_note.git #Gitee 目标仓库地址
       # 2、部署 Gitee Pages
       - name: Deploy Gitee Pages
         # 手动执行时只同步内容, 不进行部署
