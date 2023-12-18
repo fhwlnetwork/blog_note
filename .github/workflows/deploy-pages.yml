@@ -75,6 +75,7 @@ jobs:
         uses: wearerequired/git-mirror-action@master #使用action库
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }} #Gitee私钥
+          #SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }} #Gitee私钥
         with:
           source-repo: git@github.com:fhwlnetwork/blog_note.git #GitHub 源仓库地址
           destination-repo: git@gitee.com:fhwlkj/blog_note.git #Gitee 目标仓库地址
