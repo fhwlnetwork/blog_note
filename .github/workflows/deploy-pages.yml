@@ -65,7 +65,6 @@ jobs:
         with:
           BRANCH: pages
           FOLDER: docs/.vitepress/dist
-
   # 任务2: 部署 Gitee Pages
   deploy-gitee-pages:
     runs-on: ubuntu-latest
@@ -76,22 +75,8 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }} #Gitee私钥
         with:
-          source-repo: git@github.com:fhwlnetwork/blog_note.git #GitHub 源仓库地址
-          destination-repo: git@gitee.com:fhwlkj/blog_note.git #Gitee 目标仓库地址
-      # - name: Sync Github Repos To Gitee  # 名字随便起
-      #   uses: Yikun/hub-mirror-action@master  # 使用Yikun/hub-mirror-action
-      #   with:
-      #     src: github/fhwlnetwork  # 源端账户名(github)
-      #     dst: gitee/fhwlkj  # 目的端账户名(gitee)
-      #     dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}  # SSH密钥对中的私钥
-      #     dst_token:  ${{ secrets.GITEE_TOKEN }}  # Gitee账户的私人令牌
-      #     account_type: user  # 账户类型
-      #     clone_style: "https"  # 使用https方式进行clone，也可以使用ssh
-      #     debug: true  # 启用后会显示所有执行命令
-      #     force_update: true  # 启用后，强制同步，即强制覆盖目的端仓库
-      #     static_list: "blog_note"  # 静态同步列表，在此填写需要同步的仓库名称，可填写多个
-      #     timeout: '600s'  # git超时设置，超时后会自动重试git操作
-
+          source-repo: git@github.com:Charles7c/charles7c.github.io.git #GitHub 源仓库地址
+          destination-repo: git@gitee.com:Charles7c/charles7c.git #Gitee 目标仓库地址
       # 2、部署 Gitee Pages
       - name: Deploy Gitee Pages
         # 手动执行时只同步内容, 不进行部署
@@ -100,5 +85,5 @@ jobs:
         with:
           gitee-username: ${{ secrets.GITEE_USERNAME }} #Gitee 用户名
           gitee-password: ${{ secrets.GITEE_PASSWORD }} #Gitee 密码
-          gitee-repo: 凤华网络/blog_note #Gitee 仓库
+          gitee-repo: Charles7c/charles7c #Gitee 仓库
           branch: pages #要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
