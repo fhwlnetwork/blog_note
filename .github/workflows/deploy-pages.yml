@@ -67,69 +67,38 @@ jobs:
           FOLDER: docs/.vitepress/dist
 
   # 任务2: 部署 Gitee Pages
-  # deploy-gitee-pages:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # 1、同步内容到 Gitee
-  #     - name: Sync to Gitee
-  #       uses: wearerequired/git-mirror-action@master #使用action库
-  #       env:
-  #         SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }} #Gitee私钥
-  #       with:
-  #         source-repo: git@github.com:fhwlnetwork/blog_note.git #GitHub 源仓库地址
-  #         destination-repo: git@gitee.com:fhwlkj/blog_note.git #Gitee 目标仓库地址
-  #     # - name: Sync Github Repos To Gitee  # 名字随便起
-  #     #   uses: Yikun/hub-mirror-action@master  # 使用Yikun/hub-mirror-action
-  #     #   with:
-  #     #     src: github/fhwlnetwork  # 源端账户名(github)
-  #     #     dst: gitee/fhwlkj  # 目的端账户名(gitee)
-  #     #     dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}  # SSH密钥对中的私钥
-  #     #     dst_token:  ${{ secrets.GITEE_TOKEN }}  # Gitee账户的私人令牌
-  #     #     account_type: user  # 账户类型
-  #     #     clone_style: "https"  # 使用https方式进行clone，也可以使用ssh
-  #     #     debug: true  # 启用后会显示所有执行命令
-  #     #     force_update: true  # 启用后，强制同步，即强制覆盖目的端仓库
-  #     #     static_list: "blog_note"  # 静态同步列表，在此填写需要同步的仓库名称，可填写多个
-  #     #     timeout: '600s'  # git超时设置，超时后会自动重试git操作
-
-  #     # 2、部署 Gitee Pages
-  #     - name: Deploy Gitee Pages
-  #       # 手动执行时只同步内容, 不进行部署
-  #       if: github.event_name != 'workflow_dispatch'
-  #       uses: yanglbme/gitee-pages-action@main
-  #       with:
-  #         gitee-username: ${{ secrets.GITEE_USERNAME }} #Gitee 用户名
-  #         gitee-password: ${{ secrets.GITEE_PASSWORD }} #Gitee 密码
-  #         gitee-repo: 凤华网络/blog_note #Gitee 仓库
-  #         branch: pages #要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
-  repo-sync:
-    env:
-      dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-      dst_token: ${{ secrets.GITEE_TOKEN }}
-      gitee_user: ${{ secrets.GITEE_USER }}
+  deploy-gitee-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      # 1、同步内容到 Gitee
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master #使用action库
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }} #Gitee私钥
         with:
-          persist-credentials: false
+          source-repo: git@github.com:fhwlnetwork/blog_note.git #GitHub 源仓库地址
+          destination-repo: git@gitee.com:fhwlkj/blog_note.git #Gitee 目标仓库地址
+      # - name: Sync Github Repos To Gitee  # 名字随便起
+      #   uses: Yikun/hub-mirror-action@master  # 使用Yikun/hub-mirror-action
+      #   with:
+      #     src: github/fhwlnetwork  # 源端账户名(github)
+      #     dst: gitee/fhwlkj  # 目的端账户名(gitee)
+      #     dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}  # SSH密钥对中的私钥
+      #     dst_token:  ${{ secrets.GITEE_TOKEN }}  # Gitee账户的私人令牌
+      #     account_type: user  # 账户类型
+      #     clone_style: "https"  # 使用https方式进行clone，也可以使用ssh
+      #     debug: true  # 启用后会显示所有执行命令
+      #     force_update: true  # 启用后，强制同步，即强制覆盖目的端仓库
+      #     static_list: "blog_note"  # 静态同步列表，在此填写需要同步的仓库名称，可填写多个
+      #     timeout: '600s'  # git超时设置，超时后会自动重试git操作
 
-      - name: sync github -> gitee
-        uses: Yikun/hub-mirror-action@master
-        if: env.dst_key && env.dst_token && env.gitee_user
+      # 2、部署 Gitee Pages
+      - name: Deploy Gitee Pages
+        # 手动执行时只同步内容, 不进行部署
+        if: github.event_name != 'workflow_dispatch'
+        uses: yanglbme/gitee-pages-action@main
         with:
-          # 必选，需要同步的 Github 用户（源）
-          src: ' github/fhwlnetwork'
-          # 必选，需要同步到的 Gitee 用户（目的）
-          dst: 'gitee/fhwlkj'
-          # 必选，Gitee公钥对应的私钥，https://gitee.com/profile/sshkeys
-          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-          # 必选，Gitee对应的用于创建仓库的token，https://gitee.com/profile/personal_access_tokens
-          dst_token:  ${{ secrets.GITEE_TOKEN }}
-          # 如果是组织，指定组织即可，默认为用户 user
-          # account_type: org
-          # 直接取当前项目的仓库名
-          static_list: ${{ github.event.repository.name }}
-          # 还有黑、白名单，静态名单机制，可以用于更新某些指定库
-          # static_list: 'repo_name,repo_name2'
-          # black_list: 'repo_name,repo_name2'
-          # white_list: 'repo_name,repo_name2'
+          gitee-username: ${{ secrets.GITEE_USERNAME }} #Gitee 用户名
+          gitee-password: ${{ secrets.GITEE_PASSWORD }} #Gitee 密码
+          gitee-repo: 凤华网络/blog_note #Gitee 仓库
+          branch: pages #要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
