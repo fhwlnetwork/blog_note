@@ -66,24 +66,49 @@ jobs:
           BRANCH: pages
           FOLDER: docs/.vitepress/dist
   # 任务2: 部署 Gitee Pages
-  deploy-gitee-pages:
+  # deploy-gitee-pages:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # 1、同步内容到 Gitee
+  #     - name: Sync to Gitee
+  #       uses: wearerequired/git-mirror-action@master #使用action库
+  #       env:
+  #         SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }} #Gitee私钥
+  #       with:
+  #         source-repo: git@github.com:fhwlnetwork/blog_note.git #GitHub 源仓库地址
+  #         destination-repo: git@gitee.com:fhwlkj/blog_note.git #Gitee 目标仓库地址
+  #     # 2、部署 Gitee Pages
+  #     - name: Deploy Gitee Pages
+  #       # 手动执行时只同步内容, 不进行部署
+  #       if: github.event_name != 'workflow_dispatch'
+  #       uses: yanglbme/gitee-pages-action@main
+  #       with:
+  #         gitee-username: ${{ secrets.GITEE_USERNAME }} #Gitee 用户名
+  #         gitee-password: ${{ secrets.GITEE_PASSWORD }} #Gitee 密码
+  #         gitee-repo: fhwlkj/blog_note #Gitee 仓库
+  #         branch: pages #要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
+  sync_gitee:
+    name: sync repo to gitee
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # 1、同步内容到 Gitee
-      - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master #使用action库
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }} #Gitee私钥
-        with:
-          source-repo: git@github.com:fhwlnetwork/blog_note.git #GitHub 源仓库地址
-          destination-repo: git@gitee.com:fhwlkj/blog_note.git #Gitee 目标仓库地址
-      # 2、部署 Gitee Pages
-      - name: Deploy Gitee Pages
-        # 手动执行时只同步内容, 不进行部署
-        if: github.event_name != 'workflow_dispatch'
-        uses: yanglbme/gitee-pages-action@main
-        with:
-          gitee-username: ${{ secrets.GITEE_USERNAME }} #Gitee 用户名
-          gitee-password: ${{ secrets.GITEE_PASSWORD }} #Gitee 密码
-          gitee-repo: fhwlkj/blog_note #Gitee 仓库
-          branch: pages #要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: checkout code from github
+        uses: actions/checkout@v2
+      # Runs a set of commands using the runners shell
+      - name: sync shell cmd
+        run: |
+          GITEE_GIT_ADDR="git@gitee.com:fhwlkj/blog_note.git"
+          git fetch --unshallow
+          SSHPATH="$HOME/.ssh"
+          rm -rf "$SSHPATH"
+          mkdir -p "$SSHPATH"
+          echo "${{ secrets.GITEE_SYNC_ACCESSS_KEY }}" > "$SSHPATH/id_rsa"
+          chmod 600 "$SSHPATH/id_rsa"
+          sudo sh -c "echo StrictHostKeyChecking no >>/etc/ssh/ssh_config"
+          git remote add upstream $GITEE_GIT_ADDR
+          git push upstream --all --force
+      
+        
+        
