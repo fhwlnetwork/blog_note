@@ -9,11 +9,11 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
   '/categories/fragments/': getItemsByDate("categories/fragments"),
   '/categories/solutions/': getItemsByDate("categories/solutions"),
   '/categories/tools/': getItemsByDate("categories/tools"),
-
   '/courses/java/': getItems("courses/java"),
   '/courses/mysql/': getItems("courses/mysql"),
   '/courses/mybatis/': getItems("courses/mybatis"),
   '/courses/cloud/': getItems("courses/cloud"),
+  '/ruankao/': getItems("ruankao"),
 }
 
 /**

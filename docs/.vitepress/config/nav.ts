@@ -27,6 +27,11 @@ export const nav: DefaultTheme.Config['nav'] = [
     activeMatch: '/tags'
   },
   {
+    text: '软考',
+    link: '/ruankao/index',
+    activeMatch: '/ruankao'
+  },
+  {
     text: '我的归档',
     link: '/archives',
     activeMatch: '/archives'
